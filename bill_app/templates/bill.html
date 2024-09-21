@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1> Billing </h1>
+<table class="table ">
+    <thead>
+    <tr>
+        <th scope="col ">#</th>
+        <th scope="col">  أسم المنتج</th>
+        <th scope="col"> الوزن </th>
+        <th scope="col">البروتين</th>
+        <th scope="col">السعر</th>
+        <th scope="col">الكميه</th>
+        <th scope="col">حذف</th>
+
+        <th scope="col "> السعر الكلي</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for items in product %}
+        <tr>
+ 
+        <th scope="row">{{ forloop.counter }}</th>
+
+            <td>{{ items.product.name }}</td>
+            <td>{{ items.product.weight }}</td>
+            <td>{{ items.product.protien }}</td>
+            <td>{{ items.product.price}}$</td>
+            <td >
+                <a href="{% url 'quantity_controller' order_id=items.order.order_id product_id=items.product.id operation=0 %}"><i class="fas fa-minus mr-2"></i></a>
+                {{ items.quantity}} 
+                <a href="{% url 'quantity_controller' order_id=items.order.order_id product_id=items.product.id operation=1 %}"><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td> <a  style='color: red;' href="{% url 'remove_product' order_id=items.order.order_id product_id=items.product.id %}" ><i class="fas fa-trash float-right "></i></a></td> 
+            <td>{{items.get_total_item_price}}</td>
+
+
+
+        </tr>
+    {% endfor %}
+    <tr> 
+        <td colspan="7" class="table-success"></td><td><b>{{total}}$</b></td>
+    </tr>
+    <tr>
+        <form action="/add_to_bill/" method="POST" >
+            {%csrf_token%}
+            <th scope="row">#</th>
+            <td>
+                <input list="names" name="name" required="true">
+                <datalist id="names">
+                    {% for names in options.name %}
+                        <option value="{{ names}}">
+                    {% endfor %}
+                </datalist>            
+            </td>
+            <td>
+                <input list="weights" name="weight" required="true">
+                <datalist id="weights">
+                    {% for weights in options.weight %}
+                        <option value="{{ weights}}">
+                    {% endfor %}
+                </datalist>            
+            </td>
+            <td><input list="protiens" name="protien" required="true">
+                <datalist id="protiens">
+                    {% for protiens in options.protien %}
+                        <option value="{{ protiens}}">
+                    {% endfor %}
+                </datalist>
+            </td>
+            <td>$$$$</td>
+            <td ><input name="quantity"  type="number" required="true" min="1"></td>
+            <td></td>
+            <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="+"></td>
+        </form>
+    </tr>
+
+    <tr> 
+        <form action="/billing/"  method="POST" >
+            {%csrf_token%}
+            <td colspan="2"  style="padding-left: 47px;">
+                <input type="checkbox" name="account"  class="btn-check" id="btn-check-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined">آجل</label>
+            </td>
+            <td colspan="5" class=""></td>
+            <td>  <input style="width: 85px;" type="submit"   class="btn btn-lg btn-primary" value="ملخص" ></td>
+        </form>
+
+    </tr>
+
+
+    </tbody>
+</table>
+
+{% endblock %}
+

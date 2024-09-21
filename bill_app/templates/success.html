@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>العجايبي</title>
+    <meta name="description" content="A brief description" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <meta
+      name="author"
+      content="Based in Chicago, Illinois, Little Lemon is a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
+    />
+
+    <!-- Load favicon -->
+    <link
+      rel="shortcut icon"
+      type="image/png"
+
+    />
+
+    <!-- Include your CSS files here -->
+    <link
+      rel="preload"
+      as="style"
+      onload="this.rel = 'stylesheet'"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+    />
+    
+  </head>
+
+  <body>
+    <div class="container-fluid text-center ">
+      <div class="row">
+
+        <div class="col">
+          <p style="font: 1.8em sans-serif; margin-top: 4px; text-align: center;font-weight: 600; "> العجايبي  </p>
+          <p style="font: 1.8em sans-serif; margin-top: 7px; text-align: center;font-weight: 600; "> لتجاره الاعلاف ببني مزار  </p>
+
+        </div>
+        <div class="col" >
+        </div>
+        <div class="col">
+          <p style="font: 1.7em sans-serif; margin-top: 4px; font-weight: 600;">01117870208 </p>
+          <p style="font: 1.7em sans-serif; margin-top: 7px; font-weight: 600;">( {{order_id}} ) : رقم الفاتورة</p>
+        </div>
+
+      </div>
+    </div>
+    <div col>
+    </div>
+
+<table class="table table-striped table-bordered ">
+    <thead>
+    <tr>
+        <th scope="col ">#</th>
+        <th scope="col"> أسم المنتج</th>
+        <th scope="col"> الوزن </th>
+        <th scope="col">البروتين</th>
+        <th scope="col">السعر</th>
+        <th scope="col">الكميه</th>
+        <th scope="col ">السعر الكلي</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for items in product %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ items.product.name }}</td>
+        <td>{{ items.product.weight }}</td>
+        <td>{{ items.product.protien }}%</td>
+        <td>{{ items.product.price}}$</td>
+        <td>{{ items.quantity}}</td>
+        <td>{{items.get_total_item_price}}</td>
+    </tr>
+    {% endfor %}
+    <tr> 
+      <td colspan="1" class="table-active fs-4"><b>الأجمالي</b></td>
+      <td colspan="5" class="table-active"></td>
+      <td><b>{{total}}$</b></td>
+    </tr>
+    </tbody>
+</table>
+<span><a href="{% url 'billing' %}"><button  style="margin-left: 70%;height: 60px;width: 120px;" type="button" class="btn btn-secondary btn-lg  d-print-none"  >Back</button></a></span>
+<span><a href="{% url 'update_products'%}"><button  style="margin-left: 2%;height: 60px;width: 120px;" type="button" class="btn btn-secondary btn-lg  d-print-none" onclick="window.print()" >Done</button></a></span>
+</body>
+</html>

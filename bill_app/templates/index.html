@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <section>
+    <article>
+      <h2 style="text-align: center;"><a href="user/">Add New User </a></h2>
+      <img src="{% static 'img/users_page_1.jpg' %}">
+
+    </article>
+    <article>
+     <h2 style="text-align: center;"><a  href="admin/">Admin Page</a></h2> 
+      <img src="{% static 'img/admin.png' %}">
+
+    </article>
+    <article>
+      <h2 style="text-align: center;"><a href="/">Bill Details </a></h2> 
+      <img src="{% static 'img/users_page.png' %}">
+    
+    </article>
+  </section>
+{% endblock %}
