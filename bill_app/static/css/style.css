@@ -90,10 +90,12 @@ section {
 
 article {
     flex:1;
+    border-radius: 12%;
 }
 
 article img {
     max-width: 100%;
+    max-block-size: ;
 }
 
 article ul {
