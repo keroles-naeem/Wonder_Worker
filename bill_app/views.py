@@ -31,10 +31,15 @@ def products(request):
     products_dect={'product':products_items,'total':total}   
     return render(request, 'products.html',products_dect)
 
+def users(request):
+    users=Customer.objects.all()
+    users_dect={'users':users}   
+    return render(request, 'users.html',users_dect)
+
 def user_page(request):
     form = UserForm()
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             form.save()
     context = {'form':form}

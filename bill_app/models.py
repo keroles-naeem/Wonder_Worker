@@ -4,8 +4,14 @@ from django.utils import timezone
 
 # Create your models here.
 class Customer(models.Model):
+   customer_name=models.CharField(max_length=20)   
    customer_number=models.IntegerField(primary_key=True)
-   customer_name=models.CharField(max_length=20)
+   cus_note=models.CharField(max_length=20,null=True)
+   # cus_paid=models.IntegerField(default=0)
+   cus_acc=models.IntegerField(default=0)
+   
+
+   
    def __str__(self):
       return self.customer_name 
 
@@ -47,3 +53,9 @@ class Bill(models.Model):
       return self.order.customer.customer_name
     
 
+class Bills_archive(models.Model):
+   order_id=models.IntegerField(null=False)
+   product_id = models.ForeignKey(Product,on_delete=models.CASCADE)
+   quantity = models.IntegerField(default=1)
+   cus_id=models.ForeignKey(Customer,on_delete=models.CASCADE)
+   cus_paid=models.IntegerField(default=0)
