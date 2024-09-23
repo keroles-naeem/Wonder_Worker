@@ -42,6 +42,7 @@ class Bill(models.Model):
    order=models.ForeignKey(Order,on_delete=models.CASCADE)
    product = models.ForeignKey(Product,on_delete=models.CASCADE)
    quantity = models.IntegerField(default=1)
+   cus_paid=models.IntegerField(default=0)
    class Meta:
       unique_together = ('order', 'product')
    def get_total_item_price(self):
@@ -53,9 +54,9 @@ class Bill(models.Model):
       return self.order.customer.customer_name
     
 
-class Bills_archive(models.Model):
-   order_id=models.IntegerField(null=False)
-   product_id = models.ForeignKey(Product,on_delete=models.CASCADE)
-   quantity = models.IntegerField(default=1)
-   cus_id=models.ForeignKey(Customer,on_delete=models.CASCADE)
-   cus_paid=models.IntegerField(default=0)
+# class Bills_archive(models.Model):
+#    order_id=models.IntegerField(null=False)
+#    product_id = models.ForeignKey(Product,on_delete=models.CASCADE)
+#    quantity = models.IntegerField(default=1)
+#    cus_id=models.ForeignKey(Customer,on_delete=models.CASCADE)
+#    cus_paid=models.IntegerField(default=0)
