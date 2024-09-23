@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<tr>
+    <form action="/order/" method="POST" >
+        {%csrf_token%}
+        <th scope="row">#</th>
+
+        <td>
+            <input list="customers" name="customer" required="true">
+            <datalist id="customers">
+                {% for customer in options.customers %}
+                    <option value="{{customer}}">
+                {% endfor %}
+            </datalist>            
+        </td>
+
+        <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="+"></td>
+    </form>
+</tr>
+{% endblock %}

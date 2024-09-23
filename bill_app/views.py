@@ -45,11 +45,27 @@ def user_page(request):
     context = {'form':form}
     return render(request, 'user_page.html', context)
 
+def create_order(request):
+    if request.method=="POST" :
+        cus_name=request.POST['customer']
+        cus_obj=Customer.objects.get(customer_name=cus_name)
+        Order.objects.create(customer=cus_obj)
+        return redirect("billing")
+    else:
+        customers=Customer.objects.all()
+        options={'customers':[]}
+# show option in the templete
+        for i in customers :
+            if i.customer_name not in options['customers']:
+                options['customers'].append(i.customer_name)
+    products_dect={'options':options} 
+    return render(request, 'create_order.html',products_dect)
+
 
 def billing(request):
-    options={"protien":[], "weight":[], "name":[]}
+    options={"protien":[], "weight":[], "name":[],'customers':[]}
     product=Product.objects.all()
-    bill = Bill.objects.all() 
+    bill = Bill.objects.filter(order=Order.objects.last())
     for i in product:
         if i.protien not in options['protien']:
             options['protien'].append(i.protien)
@@ -57,10 +73,11 @@ def billing(request):
             options['weight'].append(i.weight)
         if i.name not in options['name']:
             options['name'].append(i.name)
+ 
 
 # getting the order_id if order exists
     if Order.objects.exists():
-        order_id=Order.objects.first().order_id
+        order_id=Order.objects.last().order_id
     else:
         order_id=0
         
@@ -70,7 +87,7 @@ def billing(request):
             return total
         else:
             total+=i.get_total_item_price()
-    products_dect={'product':Bill.objects.all(),'total':total,'order_id':order_id,'options':options} 
+    products_dect={'product':Bill.objects.filter(order=Order.objects.last()),'total':total,'order_id':order_id,'options':options} 
     if request.method=="POST" :
         value=request.POST.get('account', False)
         print(value)
@@ -84,6 +101,7 @@ def add_to_bill(request):
         name=request.POST['name']
         protien=request.POST['protien']
         add_quantity=request.POST['quantity']
+
         try:
             item = Product.objects.get(name=name,weight=weight,protien=protien)
         except ObjectDoesNotExist :
@@ -91,13 +109,13 @@ def add_to_bill(request):
 
         
         try:
-            add_customer=Customer.objects.get(customer_number="01210336070")
+            add_customer=Customer.objects.get(customer_number='01210336070')
         except ObjectDoesNotExist:
             add_customer=Customer.objects.create(customer_number="01210336070",customer_name="keroles_naeem")
         if Order.objects.exists():
-            add_order=Order.objects.get()
+            add_order=Order.objects.last()
         else:
-            add_order=Order.objects.create(customer=add_customer,products=item)
+            add_order=Order.objects.create(customer=add_customer)
         try:    
             Bill.objects.create(
                 order=add_order,
@@ -141,6 +159,5 @@ def update_products(request):
         product.quantity-=item.quantity
         product.save()
     order=Order.objects.get(order_id=item.order.order_id)
-    order.delete()
-    bill.delete()
-    return redirect('billing')
+    order.save()
+    return redirect('create_order')

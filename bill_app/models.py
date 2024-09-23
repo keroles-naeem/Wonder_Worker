@@ -32,7 +32,6 @@ class Product(models.Model):
 class Order(models.Model):
    order_id=models.AutoField(primary_key=True)
    order_date=models.DateField(default=timezone.now)
-   products = models.ForeignKey(Product,on_delete=models.CASCADE)
    customer=models.ForeignKey(Customer,on_delete=models.DO_NOTHING)
    def __str__(self):
       return self.customer.customer_name 
@@ -55,8 +54,7 @@ class Bill(models.Model):
     
 
 # class Bills_archive(models.Model):
-#    order_id=models.IntegerField(null=False)
+#    order_id=models.ForeignKey(Order)
 #    product_id = models.ForeignKey(Product,on_delete=models.CASCADE)
 #    quantity = models.IntegerField(default=1)
-#    cus_id=models.ForeignKey(Customer,on_delete=models.CASCADE)
 #    cus_paid=models.IntegerField(default=0)
