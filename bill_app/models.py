@@ -41,6 +41,7 @@ class Bill(models.Model):
    order=models.ForeignKey(Order,on_delete=models.CASCADE)
    product = models.ForeignKey(Product,on_delete=models.CASCADE)
    quantity = models.IntegerField(default=1)
+   price= models.IntegerField(default= 0)
    cus_paid=models.IntegerField(default=0)
    class Meta:
       unique_together = ('order', 'product')

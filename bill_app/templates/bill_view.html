@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1> Billing Archive </h1>
+<table class="table ">
+    <thead>
+    <tr>
+        <th scope="col ">#</th>
+        <th scope="col">  أسم المنتج</th>
+        <th scope="col"> الوزن </th>
+        <th scope="col">البروتين</th>
+        <th scope="col">السعر</th>
+        <th scope="col">الكميه</th>
+        <th scope="col "> السعر الكلي</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for items in product %}
+        <tr>
+ 
+        <th scope="row">{{ forloop.counter }}</th>
+
+            <td>{{ items.product.name }}</td>
+            <td>{{ items.product.weight }}</td>
+            <td>{{ items.product.protien }}</td>
+            <td>{{ items.price}}$</td>
+            <td >{{ items.quantity}} </td>
+            <td>{{items.get_total_item_price}}</td>
+
+
+
+        </tr>
+    {% endfor %}
+    <tr> 
+        <td colspan="7" class="table-success"></td><td><b>{{total}}$</b></td>
+    </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+

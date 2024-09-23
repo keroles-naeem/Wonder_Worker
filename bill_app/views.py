@@ -45,6 +45,26 @@ def user_page(request):
     context = {'form':form}
     return render(request, 'user_page.html', context)
 
+
+def order_id(request):
+    if request.method=="POST" :
+        order_id=request.POST['order']
+        # order_obj=Order.objects.filter(order_id=order_id)
+        bill_obj=Bill.objects.filter(order=order_id)
+        total=0
+        for i in bill_obj:
+            if i is None:
+                return total
+            else:
+                total+=i.get_total_item_price()
+                
+        products_dect={'product':bill_obj,'total':total}
+        return render(request, 'bill_view.html',products_dect)
+
+    else:
+        return render(request, 'bill_id.html')
+
+
 def create_order(request):
     if request.method=="POST" :
         cus_name=request.POST['customer']
@@ -101,9 +121,10 @@ def add_to_bill(request):
         name=request.POST['name']
         protien=request.POST['protien']
         add_quantity=request.POST['quantity']
-
+        
         try:
             item = Product.objects.get(name=name,weight=weight,protien=protien)
+            price=item.price * int(add_quantity)
         except ObjectDoesNotExist :
             return render(request,'pageNotFound.html')
 
@@ -120,7 +141,8 @@ def add_to_bill(request):
             Bill.objects.create(
                 order=add_order,
                 product=item,
-                quantity=int(add_quantity)
+                quantity=int(add_quantity),
+                price=int(price)
             )
         except:
             redirect("billing")

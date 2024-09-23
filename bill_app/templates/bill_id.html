@@ -4,16 +4,13 @@
 {% block content %}
 
 <tr>
-    <form action="/create_order/" method="POST" >
+    <form action="/order_id/" method="POST" >
         {%csrf_token%}
         <th scope="row">#</th>
 
         <td>
-            <input list="customers" name="customer" required="true">
-            <datalist id="customers">
-                {% for customer in options.customers %}
-                    <option value="{{customer}}">
-                {% endfor %}
+            <input list="order" name="order" required="true">
+            <datalist id="order">
             </datalist>            
         </td>
 
