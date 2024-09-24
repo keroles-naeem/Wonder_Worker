@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<h1> رقم الفاتورة </h1>
 
 <tr>
     <form action="/order_id/" method="POST" >
@@ -9,12 +10,12 @@
         <th scope="row">#</th>
 
         <td>
-            <input list="order" name="order" required="true">
+            <input list="order" name="order" required="true" type="number">
             <datalist id="order">
             </datalist>            
         </td>
 
-        <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="+"></td>
+        <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="بحث"></td>
     </form>
 </tr>
 {% endblock %}

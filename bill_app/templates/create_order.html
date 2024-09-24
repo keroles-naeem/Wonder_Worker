@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
+<h1> أسم العميل</h1>
 
 <tr>
     <form action="/create_order/" method="POST" >
         {%csrf_token%}
-        <th scope="row">#</th>
+        <th scope="row"></th>
 
         <td>
             <input list="customers" name="customer" required="true">
@@ -17,7 +18,7 @@
             </datalist>            
         </td>
 
-        <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="+"></td>
+        <td colspan="2"> <input type="submit" style="width: 85px;"  class="btn btn-primary" value="تم"></td>
     </form>
 </tr>
 {% endblock %}

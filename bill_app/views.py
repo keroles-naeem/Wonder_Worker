@@ -67,10 +67,13 @@ def order_id(request):
 
 def create_order(request):
     if request.method=="POST" :
-        cus_name=request.POST['customer']
-        cus_obj=Customer.objects.get(customer_name=cus_name)
-        Order.objects.create(customer=cus_obj)
-        return redirect("billing")
+        try:
+            cus_name=request.POST['customer']
+            cus_obj=Customer.objects.get(customer_name=cus_name)
+            Order.objects.create(customer=cus_obj)
+            return redirect("billing")
+        except ObjectDoesNotExist :
+            return render(request,'pageNotFound.html')
     else:
         customers=Customer.objects.all()
         options={'customers':[]}
