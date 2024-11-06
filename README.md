@@ -34,6 +34,6 @@ python manage.py runserver
 Open a web browser and go to http://127.0.0.1:8000/ to view your app.
 Remember to configure your settings.py file properly, including database settings, installed apps, and any other project-specific configurations.
 
-https://github.com/keroles-naeem/Wonder_Worker/blob/main/bill_app/Screenshot%20from%202024-11-05%2013-27-43.png
-https://github.com/keroles-naeem/Wonder_Worker/blob/main/bill_app/Screenshot%20from%202024-11-05%2013-31-54.png
-https://github.com/keroles-naeem/Wonder_Worker/blob/main/bill_app/Screenshot%20from%202024-11-05%2013-34-15.png
+bill_app/Screenshot from 2024-11-05 13-27-43.png
+bill_app/Screenshot%20from%202024-11-05%2013-31-54.png
+bill_app/Screenshot%20from%202024-11-05%2013-34-15.png
